@@ -1,14 +1,24 @@
-import express, { Request, Response } from "express";
+import express, { Request, Response, NextFunction } from "express";
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
+// middleware to block certain hostnames
+app.use((req: Request, res: Response, next: NextFunction) => {
+  const hostname = req.hostname;
+  if (hostname.includes("lansaver-harness-bad")) {
+    res
+      .status(500)
+      .send("Test harness server error - this is a deliberate error to simulate this device backup not working");
+  } else {
+    next();
+  }
+});
+
 //Home Assistant backup start
 app.get("/backup", (req: Request, res: Response) => {
-  console.log(`Request from ${req.hostname}`);
-
   res.status(200).json({ data: { slug: "1234567890" } });
 });
 
