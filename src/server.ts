@@ -5,6 +5,11 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
+// fake server latency
+app.use((req, res, next) => {
+  setTimeout(next, 1000);
+});
+
 // middleware to block certain hostnames
 app.use((req: Request, res: Response, next: NextFunction) => {
   const hostname = req.hostname;
