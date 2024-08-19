@@ -18,7 +18,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 //Home Assistant backup start
-app.get("/backup", (req: Request, res: Response) => {
+app.post("/backup", (req: Request, res: Response) => {
   res.status(200).json({ data: { slug: "1234567890" } });
 });
 
