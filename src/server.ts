@@ -7,6 +7,8 @@ app.use(express.json());
 
 //Home Assistant backup start
 app.get("/backup", (req: Request, res: Response) => {
+  console.log(`Request from ${req.hostname}`);
+
   res.status(200).json({ data: { slug: "1234567890" } });
 });
 
